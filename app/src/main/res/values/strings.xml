@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Collect It</string>
+    <string name="title_accueil">Accueil</string>
+    <string name="title_historique">Historique</string>
+    <string name="title_lots">Lots</string>
+    <string name="title_methodes_eco">Méthodes éco</string>
+</resources>
