@@ -4,4 +4,18 @@
     <string name="title_historique">Historique</string>
     <string name="title_lots">Lots</string>
     <string name="title_methodes_eco">Méthodes éco</string>
+    <string name="title_activity_login">Connexion</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="entete_connexion">Connexion</string>
+    <string name="email">Email :</string>
+    <string name="mdp">Mot de passe :</string>
+    <string name="nouvel_utilisateur">Nouvel utilisateur ?</string>
+    <string name="inscription">Inscription</string>
+    <string name="mdp_oublie">Mot de passe oublié ?</string>
+    <string name="reinitialisation">Réinitialiser mon mot de passe</string>
 </resources>
