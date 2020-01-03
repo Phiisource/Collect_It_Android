@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_intitule_lot"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tv_cout_lot"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_weight="1"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tv_date_validite"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_weight="1"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/btn_obtenir_modifier_lot"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_weight="1"
+        android:text="@string/obtenir_lot" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:background="?android:attr/listDivider" />
+
+</LinearLayout>

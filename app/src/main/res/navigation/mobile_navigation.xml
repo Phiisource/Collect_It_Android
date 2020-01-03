@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_accueil" />
 
     <fragment
+        android:id="@+id/navigation_utilisateurs"
+        android:name="fr.utt.if26.collectit.ui.utilisateur.UtilisateursFragment"
+        android:label="@string/title_accueil"
+        tools:layout="@layout/activity_utilisateur" />
+
+    <fragment
         android:id="@+id/navigation_historique"
         android:name="fr.utt.if26.collectit.ui.historique.HistoriqueFragment"
         android:label="@string/title_historique"

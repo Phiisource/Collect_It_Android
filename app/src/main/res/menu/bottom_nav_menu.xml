@@ -7,6 +7,12 @@
         android:title="@string/title_accueil" />
 
     <item
+        android:id="@+id/navigation_utilisateurs"
+        android:visible="false"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/title_utilisateurs" />
+
+    <item
         android:id="@+id/navigation_historique"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/title_historique" />

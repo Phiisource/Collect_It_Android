@@ -1,19 +1,34 @@
 package fr.utt.if26.collectit.ui.methodeseco;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-public class MethodeEcoViewModel extends ViewModel {
+import java.util.List;
 
-    private MutableLiveData<String> mText;
+import fr.utt.if26.collectit.dataBase.CollectItRepository;
+import fr.utt.if26.collectit.dataBase.MethodesEco;
 
-    public MethodeEcoViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("Fragment méthodes éco");
+;
+
+public class MethodeEcoViewModel extends AndroidViewModel {
+
+    private CollectItRepository lRespository;
+
+    private LiveData<List<MethodesEco>> listeMethodesEco;
+
+    public MethodeEcoViewModel(Application application) {
+        super(application);
+        lRespository = new CollectItRepository(application);
+        listeMethodesEco = lRespository.getAllMethodesEco();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    LiveData<List<MethodesEco>> getAllMethodesEco() {
+        return listeMethodesEco;
+    }
+
+    public void insert (MethodesEco methodesEco) {
+        lRespository.insertMethodesEco(methodesEco);
     }
 }

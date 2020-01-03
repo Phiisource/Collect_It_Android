@@ -18,4 +18,26 @@
     <string name="inscription">Inscription</string>
     <string name="mdp_oublie">Mot de passe oublié ?</string>
     <string name="reinitialisation">Réinitialiser mon mot de passe</string>
+    <string name="ajoute_lot">Ajouter un lot</string>
+    <string name="cout">Coût</string>
+    <string name="cout_tv">Coût :</string>
+    <string name="label">Label :</string>
+    <string name="label_et">Label</string>
+    <string name="liste_lots">Liste des lots</string>
+    <string name="Ajoute_lot">Ajouter un lot</string>
+    <string name="points">Mes points</string>
+    <string name="date_validite">Date de validité :</string>
+    <string name="obtenir_lot">Obtenir ce lot</string>
+    <string name="nom">Nom :</string>
+    <string name="prenom">Prenom :</string>
+    <string name="confMdp">Confirmation du mot de passe :</string>
+    <string name="valider">Valider</string>
+    <string name="Admin">Admin</string>
+    <string name="mdpAdmin">Mot de passe administrateur :</string>
+    <string name="profil">Profil :</string>
+    <string name="deconnexion">Deconnexion</string>
+    <string name="modifier_point">Modifier les points</string>
+    <string name="enregistrer">Enregistrer</string>
+    <string name="title_utilisateurs">Utilisateurs</string>
+    <string name="modifier_lot">Modifier le lot</string>
 </resources>
