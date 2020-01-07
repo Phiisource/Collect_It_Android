@@ -38,6 +38,10 @@
             android:name=".ui.login.ProfilActivity"
             android:label="@string/app_name">
         </activity>
+        <activity
+            android:name=".ui.utilisateur.ModifierPointsActivity"
+            android:label="@string/app_name">
+        </activity>
     </application>
 
 </manifest>

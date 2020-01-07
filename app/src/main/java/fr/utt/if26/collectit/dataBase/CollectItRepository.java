@@ -101,6 +101,10 @@ public class CollectItRepository {
         new updateAsyncTask(lotDAO).execute(attributs);
     }
 
+    public void updateUtilisateur(ArrayList<Object> attributs) {
+        new updateUtilisateurAsyncTask(utilisateurDAO).execute(attributs);
+    }
+
     private static class updateAsyncTask extends AsyncTask<ArrayList<Object>, Void, Void> {
 
         private LotDAO mAsyncTaskDao;
@@ -116,4 +120,18 @@ public class CollectItRepository {
         }
     }
 
+    private static class updateUtilisateurAsyncTask extends AsyncTask<ArrayList<Object>, Void, Void> {
+
+        private UtilisateurDAO mAsyncTaskDao;
+        updateUtilisateurAsyncTask(UtilisateurDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(ArrayList<Object>... paramsAll) {
+            Object[] params = paramsAll[0].toArray();
+            mAsyncTaskDao.update(String.valueOf(params[0]), String.valueOf(params[1]), Integer.parseInt(String.valueOf(params[2])), String.valueOf(params[3]));
+            return null;
+        }
+    }
 }

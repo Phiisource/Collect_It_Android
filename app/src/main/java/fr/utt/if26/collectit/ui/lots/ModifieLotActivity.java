@@ -50,7 +50,7 @@ public class ModifieLotActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.btn_ajoute_lot){
-            if(! TextUtils.isEmpty(label.getText().toString()) && ! TextUtils.isEmpty(date.getText().toString()) && ! TextUtils.isEmpty(date.getText().toString())) {
+            if(! TextUtils.isEmpty(label.getText().toString()) && ! TextUtils.isEmpty(cout.getText().toString()) && ! TextUtils.isEmpty(date.getText().toString())) {
                 try {
                     lotsViewModel = new ViewModelProvider(this).get(LotsViewModel.class);
                     String intitule = label.getText().toString();

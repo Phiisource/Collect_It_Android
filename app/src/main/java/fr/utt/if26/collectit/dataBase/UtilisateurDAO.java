@@ -17,9 +17,9 @@ public interface UtilisateurDAO {
     @Query("DELETE FROM utilisateur")
     void deleteAll();
 
+    @Query("UPDATE utilisateur SET nom = :nom, prenom = :prenom, point = :point WHERE email = :email")
+    void update(String nom, String prenom, int point, String email);
+
     @Query("SELECT * from utilisateur ORDER BY nom ASC")
     LiveData<List<Utilisateur>> getAlphabetizedUtilisateurs();
-
-    @Query("SELECT * from utilisateur WHERE email = :email")
-    LiveData<Utilisateur> getUtilisateur(String email);
 }

@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.utt.if26.collectit.dataBase.CollectItRepository;
@@ -28,5 +29,14 @@ public class UtilisateurViewModel extends AndroidViewModel {
 
     public void insert (Utilisateur utilisateur) {
         uRespository.insertUtilisateur(utilisateur);
+    }
+
+    public void update (String nom, String prenom, int point, String email) {
+        ArrayList<Object> attributs = new ArrayList<Object>();
+        attributs.add(nom);
+        attributs.add(prenom);
+        attributs.add(point);
+        attributs.add(email);
+        uRespository.updateUtilisateur(attributs);
     }
 }

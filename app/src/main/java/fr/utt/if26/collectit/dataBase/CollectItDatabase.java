@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 
-@Database(entities = {Lot.class, MethodesEco.class, Utilisateur.class}, version = 5)
+@Database(entities = {Lot.class, MethodesEco.class, Utilisateur.class}, version = 7)
 public abstract class CollectItDatabase extends RoomDatabase {
     public abstract LotDAO lotDAO();
     public abstract MethodesEcoDAO methodesEcoDAO();

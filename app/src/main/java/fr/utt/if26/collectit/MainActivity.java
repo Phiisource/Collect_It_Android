@@ -24,15 +24,19 @@ import com.google.firebase.database.ValueEventListener;
 
 import fr.utt.if26.collectit.dataBase.Utilisateur;
 import fr.utt.if26.collectit.ui.login.ProfilActivity;
+import fr.utt.if26.collectit.ui.lots.AdapteurLot;
+import fr.utt.if26.collectit.ui.lots.AjouteLotActivity;
+import fr.utt.if26.collectit.ui.lots.LotsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton floatingActionButtonProfil;
-    private Switch switchButton;
+    public Switch switchButton;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     public static boolean isChecked = false;
-    private ObservableBoolean aBoolean;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        aBoolean = new ObservableBoolean();
-        aBoolean.setIsbackOffice(false);
 
         floatingActionButtonProfil  = findViewById(R.id.btn_profil);
         floatingActionButtonProfil.setOnClickListener(new View.OnClickListener() {
@@ -67,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
         databaseReference.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 Utilisateur u = dataSnapshot.getValue(Utilisateur.class);
                 if (u.getAdmin()) {
                     switchButton.setVisibility(View.VISIBLE);
@@ -77,19 +79,41 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                             if(switchButton.isChecked()) {
-                                aBoolean.setIsbackOffice(true);
                                 isChecked = true;
+                                // Changement de la barre de navigation
                                 navView.getMenu().findItem(R.id.navigation_accueil).setVisible(false);
                                 navView.getMenu().findItem(R.id.navigation_historique).setVisible(false);
                                 navView.getMenu().findItem(R.id.navigation_methodes_eco).setVisible(false);
                                 navView.getMenu().findItem(R.id.navigation_utilisateurs).setVisible(true);
+
+                                if(navView.getMenu().findItem(R.id.navigation_lots).isChecked()) {
+                                    // Ajouter le bouton ajoute
+                                    LotsFragment.floatingActionButton.show();
+                                    LotsFragment.floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Intent ajouteIntent = new Intent(MainActivity.this, AjouteLotActivity.class);
+                                            startActivity(ajouteIntent);
+                                        }
+                                    });
+                                    //Modifier le texte du bouton
+                                    AdapteurLot.globalObtenirModifier.setText(R.string.modifier_lot);
+                                }
                             } else {
-                                aBoolean.setIsbackOffice(false);
                                 isChecked = false;
+                                // Changement de la barre de navigation
                                 navView.getMenu().findItem(R.id.navigation_accueil).setVisible(true);
                                 navView.getMenu().findItem(R.id.navigation_historique).setVisible(true);
                                 navView.getMenu().findItem(R.id.navigation_methodes_eco).setVisible(true);
                                 navView.getMenu().findItem(R.id.navigation_utilisateurs).setVisible(false);
+
+                                if(navView.getMenu().findItem(R.id.navigation_lots).isChecked()) {
+                                    //Masquer le buton ajoute
+                                    LotsFragment.floatingActionButton.hide();
+
+                                    //Modifier le texte du bouton
+                                    AdapteurLot.globalObtenirModifier.setText(R.string.obtenir_lot);
+                                }
                             }
                         }
                     });
@@ -101,10 +125,5 @@ public class MainActivity extends AppCompatActivity {
                 // Failed to read value
             }
         });
-    }
-
-    public void setIsBackOffice (Boolean checked) {
-        isChecked = checked;
-        notify();
     }
 }

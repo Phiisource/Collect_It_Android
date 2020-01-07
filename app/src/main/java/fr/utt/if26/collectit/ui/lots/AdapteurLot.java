@@ -20,13 +20,14 @@ import fr.utt.if26.collectit.dataBase.Lot;
 public class AdapteurLot extends RecyclerView.Adapter<AdapteurLot.LotViewHolder> {
 
     private Context con;
+    public static Button globalObtenirModifier;
 
     class LotViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView label;
         private final TextView cout;
         private final TextView date;
         private long id;
-        private final Button obtenirModifierLot;
+        public final Button obtenirModifierLot;
 
         private LotViewHolder(View itemView) {
             super(itemView);
@@ -35,16 +36,14 @@ public class AdapteurLot extends RecyclerView.Adapter<AdapteurLot.LotViewHolder>
             date = itemView.findViewById(R.id.tv_date_validite);
             id = 0;
             obtenirModifierLot = itemView.findViewById(R.id.btn_obtenir_modifier_lot);
+            globalObtenirModifier = obtenirModifierLot;
 
             if (MainActivity.isChecked) {
                 obtenirModifierLot.setText(R.string.modifier_lot);
             } else {
                 obtenirModifierLot.setText(R.string.obtenir_lot);
             }
-
             obtenirModifierLot.setOnClickListener(this);
-
-
         }
 
 
@@ -58,7 +57,6 @@ public class AdapteurLot extends RecyclerView.Adapter<AdapteurLot.LotViewHolder>
                 intentAjouteLot.putExtra("id", String.valueOf(id));
                 con.startActivity(intentAjouteLot);
             }
-
         }
     }
 
@@ -66,7 +64,7 @@ public class AdapteurLot extends RecyclerView.Adapter<AdapteurLot.LotViewHolder>
     //private final Context contextAdapteur;
     private List<Lot> listeLots;
 
-    AdapteurLot(Context context) {
+    public AdapteurLot(Context context) {
         inflater = LayoutInflater.from(context);
         con = context;
     }

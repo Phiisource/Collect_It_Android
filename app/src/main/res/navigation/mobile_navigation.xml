@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/navigation_utilisateurs"
         android:name="fr.utt.if26.collectit.ui.utilisateur.UtilisateursFragment"
-        android:label="@string/title_accueil"
+        android:label="@string/title_utilisateurs"
         tools:layout="@layout/activity_utilisateur" />
 
     <fragment

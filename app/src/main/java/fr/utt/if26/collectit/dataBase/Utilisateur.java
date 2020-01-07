@@ -9,6 +9,8 @@ import androidx.room.PrimaryKey;
 public class Utilisateur {
     @PrimaryKey
     @NonNull
+    private String id;
+    @ColumnInfo(name = "email")
     private String email;
     @ColumnInfo(name = "nom")
     private String nom;
@@ -20,7 +22,8 @@ public class Utilisateur {
     private boolean admin;
 
 
-    public Utilisateur(String email, String nom, String prenom, int point, boolean admin) {
+    public Utilisateur(String id, String email, String nom, String prenom, int point, boolean admin) {
+        this.id = id;
         this.email = email;
         this.nom = nom;
         this.prenom = prenom;
@@ -29,10 +32,13 @@ public class Utilisateur {
     }
 
     public Utilisateur() {
-
     }
 
     @NonNull
+    public String getId() {
+        return id;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -53,7 +59,11 @@ public class Utilisateur {
         return admin;
     }
 
-    public void setEmail(@NonNull String email) {
+    public void setId(@NonNull String id) {
+        this.id = id;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
     }
 

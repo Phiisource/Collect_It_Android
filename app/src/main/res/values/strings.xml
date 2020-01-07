@@ -34,10 +34,11 @@
     <string name="valider">Valider</string>
     <string name="Admin">Admin</string>
     <string name="mdpAdmin">Mot de passe administrateur :</string>
-    <string name="profil">Profil :</string>
+    <string name="profil">Profil</string>
     <string name="deconnexion">Deconnexion</string>
-    <string name="modifier_point">Modifier les points</string>
+    <string name="consulter_profil">Consulter le profil</string>
     <string name="enregistrer">Enregistrer</string>
     <string name="title_utilisateurs">Utilisateurs</string>
     <string name="modifier_lot">Modifier le lot</string>
+    <string name="points_">Points :</string>
 </resources>

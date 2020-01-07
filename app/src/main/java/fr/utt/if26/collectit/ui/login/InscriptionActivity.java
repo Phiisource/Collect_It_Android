@@ -97,7 +97,7 @@ public class InscriptionActivity extends AppCompatActivity implements View.OnCli
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            System.out.println(admin.isChecked() + "et aussi" + passwordAdmin);
+
                             boolean isAdmin = false;
                             if (admin.isChecked() && TextUtils.equals("Admin", passwordAdmin)) {
                                 isAdmin = true;
@@ -106,7 +106,7 @@ public class InscriptionActivity extends AppCompatActivity implements View.OnCli
                             }
 
                             // Insertion de l'utilisateur en base de données
-                            Utilisateur u = new Utilisateur(mail, lastName, firstName, 0, isAdmin);
+                            Utilisateur u = new Utilisateur(user.getUid(), mail, lastName, firstName, 0, isAdmin);
                             uRespository.insertUtilisateur(u);
                             databaseReference.child(user.getUid()).setValue(u);
 
@@ -117,7 +117,7 @@ public class InscriptionActivity extends AppCompatActivity implements View.OnCli
                         } else {
                             // If sign in fails, display a message to the user.
                             // Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(InscriptionActivity.this, "Les informations sont incorrectes",
+                            Toast.makeText(InscriptionActivity.this, "Les informations sont incorrectes, le champ email doit être au format email",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
