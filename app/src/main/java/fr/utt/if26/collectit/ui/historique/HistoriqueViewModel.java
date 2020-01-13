@@ -1,19 +1,32 @@
 package fr.utt.if26.collectit.ui.historique;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-public class HistoriqueViewModel extends ViewModel {
+import java.util.List;
 
-    private MutableLiveData<String> mText;
+import fr.utt.if26.collectit.dataBase.CollectItRepository;
+import fr.utt.if26.collectit.dataBase.HistoriquePoints;
 
-    public HistoriqueViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("Fragment historique");
+public class HistoriqueViewModel extends AndroidViewModel {
+
+    private CollectItRepository hRespository;
+
+    private LiveData<List<HistoriquePoints>> listeHistorique;
+
+    public HistoriqueViewModel(Application application) {
+        super(application);
+        hRespository = new CollectItRepository(application);
+        listeHistorique = hRespository.getAllHistorique();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<List<HistoriquePoints>> getAllHistorique() {
+        return listeHistorique;
+    }
+
+    public void insert (HistoriquePoints historiquePoints) {
+        hRespository.insertHistorique(historiquePoints);
     }
 }

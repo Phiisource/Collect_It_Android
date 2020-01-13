@@ -10,30 +10,16 @@
         android:layout_width="389dp"
         android:layout_height="266dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="448dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/text_methodes_eco"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="408dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="416dp"
-        android:layout_height="176dp"
-        android:layout_marginTop="52dp"
+        android:layout_width="428dp"
+        android:layout_height="180dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/tri_dechets" />
@@ -42,7 +28,7 @@
         android:id="@+id/imageView3"
         android:layout_width="435dp"
         android:layout_height="179dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="172dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

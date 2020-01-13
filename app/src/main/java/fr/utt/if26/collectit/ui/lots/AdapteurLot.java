@@ -7,20 +7,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import fr.utt.if26.collectit.MainActivity;
 import fr.utt.if26.collectit.R;
+import fr.utt.if26.collectit.dataBase.HistoriquePoints;
 import fr.utt.if26.collectit.dataBase.Lot;
+import fr.utt.if26.collectit.ui.accueil.AccueilFragment;
+import fr.utt.if26.collectit.ui.historique.HistoriqueViewModel;
+import fr.utt.if26.collectit.ui.utilisateur.UtilisateurViewModel;
 
 public class AdapteurLot extends RecyclerView.Adapter<AdapteurLot.LotViewHolder> {
 
     private Context con;
     public static Button globalObtenirModifier;
+    private UtilisateurViewModel utilisateurViewModel;
+    private HistoriqueViewModel historiqueViewModel;
+    private DatabaseReference databaseReference;
+
 
     class LotViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView label;
@@ -56,6 +72,22 @@ public class AdapteurLot extends RecyclerView.Adapter<AdapteurLot.LotViewHolder>
                 intentAjouteLot.putExtra("date", date.getText().toString().split(" : ")[1]);
                 intentAjouteLot.putExtra("id", String.valueOf(id));
                 con.startActivity(intentAjouteLot);
+            } else {
+                if(AccueilFragment.utilisateur.getPoint() > Integer.parseInt(cout.getText().toString().split(" : ")[1].split(" ")[0])) {
+                    Toast.makeText(con, "Lot obtenu", Toast.LENGTH_SHORT).show();
+
+                    // Mise à jour de l'utilisateur
+                    utilisateurViewModel.update(AccueilFragment.utilisateur.getNom(), AccueilFragment.utilisateur.getPrenom(),AccueilFragment.utilisateur.getPoint() - Integer.parseInt(cout.getText().toString().split(" : ")[1].split(" ")[0]), AccueilFragment.utilisateur.getEmail());
+                    databaseReference.child(AccueilFragment.utilisateur.getId()).child("point").setValue(AccueilFragment.utilisateur.getPoint() - Integer.parseInt(cout.getText().toString().split(" : ")[1].split(" ")[0]));
+
+                    // Mise à jour de l'historique
+                    SimpleDateFormat dateformat = new SimpleDateFormat("dd/MMM/yyyy");
+                    HistoriquePoints hp = new HistoriquePoints(label.getText().toString(), Integer.parseInt(cout.getText().toString().split(" : ")[1].split(" ")[0]), dateformat.format(Calendar.getInstance().getTime()), AccueilFragment.utilisateur.getId());
+                    historiqueViewModel.insert(hp);
+
+                } else {
+                    Toast.makeText(con, "Vous n'avez pas assez de points", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
@@ -67,6 +99,10 @@ public class AdapteurLot extends RecyclerView.Adapter<AdapteurLot.LotViewHolder>
     public AdapteurLot(Context context) {
         inflater = LayoutInflater.from(context);
         con = context;
+        utilisateurViewModel = ViewModelProviders.of((FragmentActivity) con).get(UtilisateurViewModel.class);
+        historiqueViewModel = ViewModelProviders.of((FragmentActivity) con).get(HistoriqueViewModel.class);
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+
     }
 
     @NonNull

@@ -5,6 +5,9 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,18 +16,30 @@ public class CollectItRepository {
     private LotDAO lotDAO;
     private MethodesEcoDAO methodesEcoDAO;
     private UtilisateurDAO utilisateurDAO;
+    private HistoriquePointsDAO historiquePointsDAO;
     private LiveData<List<Lot>> mAllLots;
     private LiveData<List<MethodesEco>> mAllMethodesEco;
     private LiveData<List<Utilisateur>> mAllUtilisateurs;
+    private LiveData<List<HistoriquePoints>> mAllHistorique;
+    private FirebaseAuth mAuth;
+
 
     public CollectItRepository(Application application) {
         CollectItDatabase db = CollectItDatabase.getDatabase(application);
+
         lotDAO = db.lotDAO();
         methodesEcoDAO = db.methodesEcoDAO();
         utilisateurDAO = db.utilisateurDAO();
+        historiquePointsDAO = db.historiquePointsDAO();
         mAllLots = lotDAO.getAlphabetizedLots();
         mAllMethodesEco = methodesEcoDAO.getAlphabetizedMethodesEcos();
         mAllUtilisateurs = utilisateurDAO.getAlphabetizedUtilisateurs();
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            mAllHistorique = historiquePointsDAO.getAlphabetizedHistoriquePoints(user.getUid());
+        }
     }
 
     public LiveData<List<Lot>> getAllLots() {
@@ -37,6 +52,10 @@ public class CollectItRepository {
 
     public LiveData<List<Utilisateur>> getAllUtilisateurs() {
         return mAllUtilisateurs;
+    }
+
+    public LiveData<List<HistoriquePoints>> getAllHistorique() {
+        return mAllHistorique;
     }
 
     public LotDAO getLotDAO() {
@@ -53,6 +72,10 @@ public class CollectItRepository {
 
     public void insertUtilisateur (Utilisateur utilisateur) {
         new insertAsyncTaskUtilisateur(utilisateurDAO).execute(utilisateur);
+    }
+
+    public void insertHistorique (HistoriquePoints historiquePoints) {
+        new insertAsyncTaskHistorique(historiquePointsDAO).execute(historiquePoints);
     }
 
     private static class insertAsyncTask extends AsyncTask<Lot, Void, Void> {
@@ -93,6 +116,20 @@ public class CollectItRepository {
         @Override
         protected Void doInBackground(final Utilisateur... params) {
             mAsyncTaskDaoUtilisateur.insert(params[0]);
+            return null;
+        }
+    }
+
+    private static class insertAsyncTaskHistorique extends AsyncTask<HistoriquePoints, Void, Void> {
+
+        private HistoriquePointsDAO mAsyncTaskDaoHistorique;
+        insertAsyncTaskHistorique(HistoriquePointsDAO dao) {
+            mAsyncTaskDaoHistorique = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final HistoriquePoints... params) {
+            mAsyncTaskDaoHistorique.insert(params[0]);
             return null;
         }
     }

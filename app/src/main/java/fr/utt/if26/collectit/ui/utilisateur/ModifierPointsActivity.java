@@ -17,8 +17,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import fr.utt.if26.collectit.R;
+import fr.utt.if26.collectit.dataBase.HistoriquePoints;
 import fr.utt.if26.collectit.dataBase.Utilisateur;
+import fr.utt.if26.collectit.ui.historique.HistoriqueViewModel;
 
 public class ModifierPointsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,8 +31,10 @@ public class ModifierPointsActivity extends AppCompatActivity implements View.On
 
     private TextView nom, prenom, email;
     private UtilisateurViewModel utilisateurViewModel;
+    private HistoriqueViewModel historiqueViewModel;
     private EditText points;
     private Button btnEnregistrer;
+    private int getAnciensPoints = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,7 @@ public class ModifierPointsActivity extends AppCompatActivity implements View.On
         email = findViewById(R.id.tv_nom_profil4);
         points = findViewById(R.id.et_points);
 
+        utilisateurViewModel = new ViewModelProvider(this).get(UtilisateurViewModel.class);
 
         System.out.println("id utilisateur" + getIntent().getStringExtra("id"));
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -49,6 +57,7 @@ public class ModifierPointsActivity extends AppCompatActivity implements View.On
                 nom.setText(u.getNom());
                 prenom.setText(u.getPrenom());
                 email.setText(u.getEmail());
+                getAnciensPoints = u.getPoint();
                 points.setText(String.valueOf(u.getPoint()));
             }
 
@@ -67,9 +76,14 @@ public class ModifierPointsActivity extends AppCompatActivity implements View.On
         if (view == btnEnregistrer) {
             if(! TextUtils.isEmpty(points.getText().toString())) {
                 try {
-                    utilisateurViewModel = new ViewModelProvider(this).get(UtilisateurViewModel.class);
                     databaseReference.child(getIntent().getStringExtra("id")).child("point").setValue(Integer.parseInt(points.getText().toString()));
                     utilisateurViewModel.update(nom.getText().toString(), prenom.getText().toString(), Integer.parseInt(points.getText().toString()), email.getText().toString());
+
+                    historiqueViewModel = new ViewModelProvider(this).get(HistoriqueViewModel.class);
+                    SimpleDateFormat dateformat = new SimpleDateFormat("dd/MMM/yyyy");
+                    HistoriquePoints hp = new HistoriquePoints("Ajout de points par un admin" , Integer.parseInt(points.getText().toString()) - getAnciensPoints, dateformat.format(Calendar.getInstance().getTime()), getIntent().getStringExtra("id"));
+                    historiqueViewModel.insert(hp);
+
 
                     Toast.makeText(this, "Le profil a été mis à jour", Toast.LENGTH_SHORT).show();
                 } catch(NumberFormatException e) {

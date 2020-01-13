@@ -10,11 +10,12 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 
-@Database(entities = {Lot.class, MethodesEco.class, Utilisateur.class}, version = 7)
+@Database(entities = {Lot.class, MethodesEco.class, Utilisateur.class, HistoriquePoints.class}, version = 10)
 public abstract class CollectItDatabase extends RoomDatabase {
     public abstract LotDAO lotDAO();
     public abstract MethodesEcoDAO methodesEcoDAO();
     public abstract UtilisateurDAO utilisateurDAO();
+    public abstract HistoriquePointsDAO historiquePointsDAO();
 
 
     private static volatile CollectItDatabase INSTANCE;
@@ -38,11 +39,13 @@ public abstract class CollectItDatabase extends RoomDatabase {
         private final LotDAO lDao;
         private final MethodesEcoDAO mDao;
         private final UtilisateurDAO uDao;
+        private final HistoriquePointsDAO hDao;
 
         PopulateDbAsync(CollectItDatabase db) {
             lDao = db.lotDAO();
             mDao = db.methodesEcoDAO();
             uDao = db.utilisateurDAO();
+            hDao = db.historiquePointsDAO();
         }
 
 
@@ -59,6 +62,11 @@ public abstract class CollectItDatabase extends RoomDatabase {
             mDao.deleteAll();
             MethodesEco methodesEco = new MethodesEco("Pensez à trier les déchets et à les mettre dans les bonnes poubelles");
             mDao.insert(methodesEco);
+
+            HistoriquePoints historiquePoints = new HistoriquePoints("Ajout de points par un admin", 30, "21/12/2020", "toto");
+            hDao.insert(historiquePoints);
+
+
 
             return null;
         }

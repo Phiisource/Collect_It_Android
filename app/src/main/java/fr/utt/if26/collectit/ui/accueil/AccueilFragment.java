@@ -27,6 +27,8 @@ public class AccueilFragment extends Fragment {
     private TextView points;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
+    public static int pointsUtilisateurs = 0;
+    public static Utilisateur utilisateur = new Utilisateur();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -45,6 +47,8 @@ public class AccueilFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Utilisateur u = dataSnapshot.getValue(Utilisateur.class);
                 points.setText(String.valueOf(u.getPoint()) + " points");
+                pointsUtilisateurs = u.getPoint();
+                utilisateur = u;
             }
 
             @Override
